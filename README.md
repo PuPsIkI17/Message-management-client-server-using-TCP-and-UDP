@@ -1,6 +1,6 @@
 # Message-management-client-server-using-TCP-and-UDP
 
- <\br> There are 3 components.
+There are 3 components.
 <\br>• Sever (unique) was the first component implemented and it makes the connection between the clients
 <\br>from the platform, for the purpose of publishing and subscribing to messages.
 <\br>• TCP clients are the second component. A TCP client connects to the server, can receive (at any time)
