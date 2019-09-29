@@ -1,0 +1,59 @@
+ 							Pislari Vadim 323CB TEMA 2 PC
+ 			Aplicatie client-server TCP si UDP pentru gestionarea mesajelor
+
+	Tema realizeaza toate cerintele mentionate in enunt si realizeaza functionalitatea de baza
+ca clientii  tcp primesc de la server acele mesaje venite de la clientii UDP, care fac referire 
+la topicurile la care sunt abonati, este inclusa si componenta sf atunci cand clientii sunt
+deconectati.
+	0.Realizarea temei a inceput de utilizarea laboratoarealor 8 "Socketi TCP. Multiplexarea I/O" 
+si 6 "Socketi UDP", combinarea lor si modificarea pentru a indeplini conditiile necesare. 
+	1.In primul rand s-a realizat deschiderea socketilor si realizarea comunicarii intre clientii
+tcp, clientii udp, si server.
+	2.In al doilea rand s-a implementat ca toate mesajele primite de la socketii udp sa se 
+transmita la toti socketii tcp.
+	3. S-au tratat cazurile in care por aparea erori, fie erori legate de socketi si stabilirea
+conexiunii, fie erori de parametri, si stabilirea daca parametrii sunt corecti
+	4. S-a creat o structura care ii atribuie in server fiecarui socket tcp id-ul caracteristic 
+de 10 caractere.
+	5. S-a realizat ca serverul sa determine momentul cand s-a conectat sau s-a deconectat un nou 
+client tcp si s-a creat o noua structura Message care transmite si bufferul si ip si portul de la 
+server catre clientul tcp, si sa se afiseze mesajul corespunzator. 
+	6. S-a realizat ca si serverul si clientul sa reactioneze la comanda exit. In cazul in care
+se inchide serverul sa se inchida si toti clientii. In cazul in care este aplicat ctrl+c adica
+SIGINT asupra clientului, aceasta sa fie calificat in server ca si cum s-a deconectat un client,
+s-au daca este aplicat asupra serverului sa se inchida toti clientii.
+	7. S-a realizat procesarea bufferului primit la clientul tcp de la server si anume s-a determinat
+topicul adica primii 50 de octeti, tipul mesajului, si in functie de tipul mesajului s-a determinat 
+si mesajul. S-a realizat afisarea mesajului primit de la server.
+	8. S-a realizat citirea instructiunilor la clientul tcp (subscribe si unsubscribe), s-a realizat 
+parsarea, (sunt admise orice instructiuni care indeplinesc formatul descris in enunt cu oricate spatieri
+intre parametri, oricare alte instructiuni nu sunt admise) si transmiterea mesajului catre server.
+	9. S-a realizat primirea mesajelor la server de la clientii tcp, s-a marit structura Client astfel
+incat sa pastreze si un vector de topicuri la care este abonat clientul si un vector de sf-uri 
+caracteristice fiecarui topic. Se adauga in structura topicul la primire de la client tcp un mesaj
+subscribe. Se elimina din structura la primirea unui mesaj unsubscribe.
+	10. S-a tratat cazul cand clientul este deja abonat la un topic si se mai transmite un mesaj 
+de subscribe cu acelasi topic s-au clietul nu este abonat si se primeste un mesaj de unsubscribe.
+Pentru aceasta se mai transmite un mesaj de la server catre client despre succesul operatiei dorite.
+Si in cazul in care ca se receptioneaza o eroare sau succes la client este afisat mesajul corespunzator.
+	11. S-a modificat programul astfel incat mesajele primite de la clientul udp sa fie transmise
+doar catre clientii abonati in functie de structura Client.
+	12. S-a modificat astfel incat structura Client sa se actualizeze dupa fiecare conectare sau 
+deconectare, deoarece un client cu un socket poate sa se deconecteze dupa care sa se conecteze cu alt socket
+si cu acelasi ID, s-a tratat cazul acesta.
+	13. S-a realizat partea cu store and forward. Pentru aceasta au fost create structurile Store si Lost
+unde Store pastreaza informatia tuturor clientilor dezactivati, iar Lost pastreaza informatia unui singur
+client tcp, si toate mesajele primite in timp ce el este dezactiv. S-a modificat serverul astfel incat
+in momentul cand se deconecteaza un client id-ul lui sa fie adaugat in structura Store, iar dupa ce se
+primeste cate un mesaj, el se adauga in Lost corespunzatoare, dupa ce se reconecteaza sunt afisate toate
+mesajele "pierdute" si se actualizeaza structura.
+	14. S-a dezactivat algoritmul Neagle si s-au tratat alte cazuri cand pot aparea erori sau programul 
+sa se duca intr-o stare nedefinita.
+	Programul realizeaza functii dinamice de alocare si alocare in cazul care este depasita dimensiunea
+unor vectori sau numarul de clienti. Insa numarul de clienti admisi este unul mic deoarece in momentul 
+in care se face SF, se aloca un spatiu mare deoarece asta presupune ca pentru toti clientii trebuie pastrate
+toate topicurile si toate mesajele pierdute ce au o dimensiune de aproximativ 1600 de octeti. Complexitatea
+memoriei este estimata O(n^4) unde un n ar fi 1600. Asadar, pe masina virtuala pe care s-a realizat tema
+se admite un maxim de 40,50 clienti tcp. Daca se mareste parametrul programul va da seg_fault.
+	Pe masina virtuala pe care a fost realizata tema, programul lucreaza corect, indeplineste functionalitatea
+si conditiile necesare:)).
