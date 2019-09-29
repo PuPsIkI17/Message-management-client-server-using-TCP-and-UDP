@@ -1,11 +1,7 @@
- 							Pislari Vadim 323CB TEMA 2 PC
- 			Aplicatie client-server TCP si UDP pentru gestionarea mesajelor
 
-	Tema realizeaza toate cerintele mentionate in enunt si realizeaza functionalitatea de baza
-ca clientii  tcp primesc de la server acele mesaje venite de la clientii UDP, care fac referire 
-la topicurile la care sunt abonati, este inclusa si componenta sf atunci cand clientii sunt
-deconectati.
-	0.Realizarea temei a inceput de utilizarea laboratoarealor 8 "Socketi TCP. Multiplexarea I/O" 
+Aplicatie client-server TCP si UDP pentru gestionarea mesajelor
+			
+	0.S-A inceput de utilizarea laboratoarealor 8 "Socketi TCP. Multiplexarea I/O" 
 si 6 "Socketi UDP", combinarea lor si modificarea pentru a indeplini conditiile necesare. 
 	1.In primul rand s-a realizat deschiderea socketilor si realizarea comunicarii intre clientii
 tcp, clientii udp, si server.
@@ -49,11 +45,3 @@ primeste cate un mesaj, el se adauga in Lost corespunzatoare, dupa ce se reconec
 mesajele "pierdute" si se actualizeaza structura.
 	14. S-a dezactivat algoritmul Neagle si s-au tratat alte cazuri cand pot aparea erori sau programul 
 sa se duca intr-o stare nedefinita.
-	Programul realizeaza functii dinamice de alocare si alocare in cazul care este depasita dimensiunea
-unor vectori sau numarul de clienti. Insa numarul de clienti admisi este unul mic deoarece in momentul 
-in care se face SF, se aloca un spatiu mare deoarece asta presupune ca pentru toti clientii trebuie pastrate
-toate topicurile si toate mesajele pierdute ce au o dimensiune de aproximativ 1600 de octeti. Complexitatea
-memoriei este estimata O(n^4) unde un n ar fi 1600. Asadar, pe masina virtuala pe care s-a realizat tema
-se admite un maxim de 40,50 clienti tcp. Daca se mareste parametrul programul va da seg_fault.
-	Pe masina virtuala pe care a fost realizata tema, programul lucreaza corect, indeplineste functionalitatea
-si conditiile necesare:)).
